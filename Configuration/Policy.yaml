@@ -1,0 +1,21 @@
+# Policy for Lelesys.SuperUser package.                                         #
+#																																							  #
+# Other package should have policy like																					#
+# roles:																																				#
+#   Administrator: [Lelesys.SuperUser:SuperUser]																#
+#																																								#
+# So administrator will get access to loginAsUserAction.												#
+#																																								#
+#																																								#
+
+
+roles:
+  SuperUser: []
+
+resources:
+  methods:
+    Lelesys_SuperUser: 'method(Lelesys\SuperUser\Controller\LoginController->(loginAsUser)Action())'
+acls:
+  SuperUser:
+    methods:
+      Lelesys_SuperUser: GRANT

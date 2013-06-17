@@ -1,0 +1,41 @@
+# Settings for Lelesys.SuperUser package                                        #
+#                                                                               #
+# Set the redirect options for Superuser when Superuser will login as user      #
+# successfully or login as user falied. Also set redirect options for Superuser #
+# when Superuser will logout as user.                                           #
+#																																								#
+#	                                                                              #
+# Exapmle:                                                                      #
+#                                                                               #
+# Lelesys:																																			#
+#   SuperUser:																																	#
+#     superUserRedirectOptions:																									#
+#       loginAsUserFailed:																											#
+#         package: 'My.Admin'																										#
+#         controller: 'Admin'																										#
+#         action: 'index'																												#
+#       loginAsUserSuccess:																											#
+#         package: 'My.User'																										#
+#         controller: 'User'																										#
+#         action: 'index'																												#
+#       logoutAsUser:																														#
+#         package: 'My.Admin'																										#
+#         controller: 'Admin'																										#
+#         action: 'index'																												#
+#																																								#
+
+Lelesys:
+  SuperUser:
+    superUserRedirectOptions:
+      loginAsUserFailed:
+        package: ''
+        controller: ''
+        action: ''
+      loginAsUserSuccess:
+        package: ''
+        controller: ''
+        action: ''
+      logoutAsUser:
+        package: ''
+        controller: ''
+        action: ''

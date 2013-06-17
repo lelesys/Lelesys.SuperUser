@@ -1,0 +1,15 @@
+{
+	"name": "lelesys/superuser",
+	"type": "typo3-flow-package",
+	"description": "TYPO3 Flow package for Superuser functionality.",
+	"version": null,
+
+	"require": {
+		"typo3/flow":"*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Lelesys\\SuperUser":"Classes"
+		}
+	}
+}
