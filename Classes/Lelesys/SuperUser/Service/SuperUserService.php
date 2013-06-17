@@ -90,8 +90,9 @@ class SuperUserService {
 	 * @param \TYPO3\Flow\Mvc\ResponseInterface $response
 	 * @return void
 	 */
-	public function appendLogoutLink(\TYPO3\Flow\Mvc\RequestInterface $request, \TYPO3\Flow\Mvc\ResponseInterface $response) {
-		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest) {
+	public function appendLogoutLink($request = NULL, \TYPO3\Flow\Mvc\ResponseInterface $response = NULL) {
+		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest
+			&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
 			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
 			if((isset($server['HTTP_X_REQUESTED_WITH']) === FALSE
 				&& $this->superUserSession->getAccount() !== NULL)
