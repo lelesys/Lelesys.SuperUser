@@ -91,10 +91,19 @@ class SuperUserService {
 	 * @return void
 	 */
 	public function appendLogoutLink(\TYPO3\Flow\Mvc\RequestInterface $request, \TYPO3\Flow\Mvc\ResponseInterface $response) {
-		if ($this->superUserSession->getAccount() !== NULL) {
-			$this->standaloneView->assign('account', $this->securityContext->getAccount());
-			$this->standaloneView->setTemplatePathAndFilename('resource://Lelesys.SuperUser/Private/Templates/User/Logout.html');
-			$response->appendContent($this->standaloneView->render());
+		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest) {
+			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getParentRequest(), 'server', TRUE);
+			if((isset($server['HTTP_X_REQUESTED_WITH']) === FALSE
+				&& $this->superUserSession->getAccount() !== NULL)
+				|| (isset($server['HTTP_X_REQUESTED_WITH'])
+					&& !empty($server['HTTP_X_REQUESTED_WITH'])
+					&& strtolower($server['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'
+					&& $this->superUserSession->getAccount() !== NULL)
+			) {
+				$this->standaloneView->assign('account', $this->securityContext->getAccount());
+				$this->standaloneView->setTemplatePathAndFilename('resource://Lelesys.SuperUser/Private/Templates/User/Logout.html');
+				$response->appendContent($this->standaloneView->render());
+			}
 		}
 	}
 
