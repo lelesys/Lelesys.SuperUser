@@ -39,3 +39,5 @@ Lelesys:
         package: ''
         controller: ''
         action: ''
+
+    templatePathAndFilename: 'resource://Lelesys.SuperUser/Private/Templates/User/Logout.html'

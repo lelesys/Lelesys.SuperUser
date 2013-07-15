@@ -1,7 +1,8 @@
 <?php
+
 namespace Lelesys\SuperUser\Service;
 
-/*                                                                        *
+/* *
  * This script belongs to the TYPO3 Flow package "Lelesys.SuperUser".     *
  *                                                                        *
  *                                                                        */
@@ -48,6 +49,16 @@ class SuperUserService {
 	protected $standaloneView;
 
 	/**
+	 * Inject settings
+	 *
+	 * @param array $settings
+	 * @return void
+	 */
+	public function injectSettings(array $settings) {
+		$this->settings = $settings;
+	}
+
+	/**
 	 * Superuser will loginn as User.
 	 *
 	 * @param \TYPO3\Flow\Security\Account $account
@@ -92,17 +103,17 @@ class SuperUserService {
 	 */
 	public function appendLogoutLink($request = NULL, \TYPO3\Flow\Mvc\ResponseInterface $response = NULL) {
 		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest
-			&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
+				&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
 			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
-			if((isset($server['HTTP_X_REQUESTED_WITH']) === FALSE
-				&& $this->superUserSession->getAccount() !== NULL)
-				|| (isset($server['HTTP_X_REQUESTED_WITH'])
+			if ((isset($server['HTTP_X_REQUESTED_WITH']) === FALSE
+					&& $this->superUserSession->getAccount() !== NULL)
+					|| (isset($server['HTTP_X_REQUESTED_WITH'])
 					&& !empty($server['HTTP_X_REQUESTED_WITH'])
 					&& strtolower($server['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'
 					&& $this->superUserSession->getAccount() !== NULL)
 			) {
 				$this->standaloneView->assign('account', $this->securityContext->getAccount());
-				$this->standaloneView->setTemplatePathAndFilename('resource://Lelesys.SuperUser/Private/Templates/User/Logout.html');
+				$this->standaloneView->setTemplatePathAndFilename($this->settings['templatePathAndFilename']);
 				$response->appendContent($this->standaloneView->render());
 			}
 		}
@@ -116,6 +127,7 @@ class SuperUserService {
 	public function clearSuperUserAccount() {
 		$this->superUserSession->setAccount(NULL);
 	}
+
 }
 
 ?>
