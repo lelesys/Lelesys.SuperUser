@@ -6,38 +6,50 @@
 #																																								#
 #	                                                                              #
 # Exapmle:                                                                      #
-#                                                                               #
-# Lelesys:																																			#
-#   SuperUser:																																	#
-#     superUserRedirectOptions:																									#
-#       loginAsUserFailed:																											#
-#         package: 'My.Admin'																										#
-#         controller: 'Admin'																										#
-#         action: 'index'																												#
-#       loginAsUserSuccess:																											#
-#         package: 'My.User'																										#
-#         controller: 'User'																										#
-#         action: 'index'																												#
-#       logoutAsUser:																														#
-#         package: 'My.Admin'																										#
-#         controller: 'Admin'																										#
-#         action: 'index'																												#
-#																																								#
+# 
+# Lelesys:
+#  SuperUser:
+#    superUserRedirectOptions:
+#      loginAsUserFailed:
+#       roles:
+#          roleName:
+#            package: 'My.Admin'
+#            controller: 'Admin'
+#            action: 'Admin'
+#      loginAsUserSuccess:
+#        roles:
+#          roleName:
+#            package: 'My.User'
+#            controller: 'User'
+#           action: 'index'
+#      logoutAsUser:
+#         roles:
+#          roleName:
+#            package: 'My.Admin'
+#            controller: 'Admin'
+#            action: 'index'
+#																				#																																							#
 
 Lelesys:
   SuperUser:
     superUserRedirectOptions:
       loginAsUserFailed:
-        package: ''
-        controller: ''
-        action: ''
+       roles:
+          roleName:
+            package: ''
+            controller: ''
+            action: ''
       loginAsUserSuccess:
-        package: ''
-        controller: ''
-        action: ''
+        roles:
+          roleName:
+            package: ''
+            controller: ''
+            action: ''
       logoutAsUser:
-        package: ''
-        controller: ''
-        action: ''
+         roles:
+          roleName:
+            package: ''
+            controller: ''
+            action: ''
 
     templatePathAndFilename: 'resource://Lelesys.SuperUser/Private/Templates/User/Logout.html'
