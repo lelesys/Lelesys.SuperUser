@@ -6,12 +6,12 @@
 #																																								#
 #	                                                                              #
 # Exapmle:                                                                      #
-# 
+#
 # Lelesys:
 #  SuperUser:
 #    superUserRedirectOptions:
 #      loginAsUserFailed:
-#       roles:
+#        roles:
 #          roleName:
 #            package: 'My.Admin'
 #            controller: 'Admin'
@@ -21,9 +21,9 @@
 #          roleName:
 #            package: 'My.User'
 #            controller: 'User'
-#           action: 'index'
+#            action: 'index'
 #      logoutAsUser:
-#         roles:
+#        roles:
 #          roleName:
 #            package: 'My.Admin'
 #            controller: 'Admin'
@@ -34,7 +34,7 @@ Lelesys:
   SuperUser:
     superUserRedirectOptions:
       loginAsUserFailed:
-       roles:
+        roles:
           roleName:
             package: ''
             controller: ''
@@ -46,7 +46,7 @@ Lelesys:
             controller: ''
             action: ''
       logoutAsUser:
-         roles:
+        roles:
           roleName:
             package: ''
             controller: ''
