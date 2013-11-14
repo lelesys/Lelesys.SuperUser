@@ -15,6 +15,7 @@ roles:
 resources:
   methods:
     Lelesys_SuperUser: 'method(Lelesys\SuperUser\Controller\LoginController->(loginAsUser)Action())'
+    Lelesys_SuperUser_Logout: 'method(Lelesys\SuperUser\Controller\LoginController->(logoutAsUser)Action())'
 acls:
   SuperUser:
     methods:
