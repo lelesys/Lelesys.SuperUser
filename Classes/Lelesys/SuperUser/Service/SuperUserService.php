@@ -41,12 +41,15 @@ class SuperUserService {
 	protected $superUserSession;
 
 	/**
-	 * The StandaloneView
-	 *
-	 * @var \TYPO3\Fluid\View\StandaloneView
+	 * @var \TYPO3\Flow\Core\Bootstrap
 	 * @Flow\Inject
 	 */
-	protected $standaloneView;
+	protected $bootstrap;
+
+	/**
+	 * @var array
+	 */
+	protected $settings;
 
 	/**
 	 * Inject settings
@@ -73,7 +76,7 @@ class SuperUserService {
 				$token->setAccount($account);
 			}
 			return TRUE;
-		} catch (TYPO3\Flow\Exception $e) {
+		} catch (\TYPO3\Flow\Exception $e) {
 			return FALSE;
 		}
 	}
@@ -102,6 +105,12 @@ class SuperUserService {
 	 * @return void
 	 */
 	public function appendLogoutLink($request = NULL, \TYPO3\Flow\Mvc\ResponseInterface $response = NULL) {
+		$activeRequestHandler = $this->bootstrap->getActiveRequestHandler();
+		// if not a regular Http request then just don't do anything
+		// this is required to bypass other request handlers like ExtJS or Neos Setup
+		if (get_class($activeRequestHandler) !== 'TYPO3\Flow\Http\RequestHandler') {
+			return;
+		}
 		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest
 				&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
 			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
@@ -112,8 +121,9 @@ class SuperUserService {
 					&& strtolower($server['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'
 					&& $this->superUserSession->getAccount() !== NULL)
 			) {
-				$this->standaloneView->assign('account', $this->securityContext->getAccount());
-				$this->standaloneView->setTemplatePathAndFilename($this->settings['templatePathAndFilename']);
+				$standaloneView = new \TYPO3\Fluid\View\StandaloneView($request);
+				$standaloneView->assign('account', $this->securityContext->getAccount());
+				$standaloneView->setTemplatePathAndFilename($this->settings['templatePathAndFilename']);
 				$response->appendContent($this->standaloneView->render());
 			}
 		}
