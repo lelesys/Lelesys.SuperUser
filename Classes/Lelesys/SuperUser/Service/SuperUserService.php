@@ -124,7 +124,7 @@ class SuperUserService {
 				$standaloneView = new \TYPO3\Fluid\View\StandaloneView($request);
 				$standaloneView->assign('account', $this->securityContext->getAccount());
 				$standaloneView->setTemplatePathAndFilename($this->settings['templatePathAndFilename']);
-				$response->appendContent($this->standaloneView->render());
+				$response->appendContent($standaloneView->render());
 			}
 		}
 	}
