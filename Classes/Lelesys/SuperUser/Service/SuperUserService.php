@@ -105,12 +105,6 @@ class SuperUserService {
 	 * @return void
 	 */
 	public function appendLogoutLink($request = NULL, \TYPO3\Flow\Mvc\ResponseInterface $response = NULL) {
-		$activeRequestHandler = $this->bootstrap->getActiveRequestHandler();
-		// if not a regular Http request then just don't do anything
-		// this is required to bypass other request handlers like ExtJS or Neos Setup
-		if (get_class($activeRequestHandler) !== 'TYPO3\Flow\Http\RequestHandler') {
-			return;
-		}
 		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest
 				&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
 			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
