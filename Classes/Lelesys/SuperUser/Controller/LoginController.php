@@ -36,9 +36,10 @@ class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * Superuser can login as other user ang get redirected to Users home page.
 	 *
 	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param array $additionalParameters
 	 * @return void
 	 */
-	public function loginAsUserAction(\TYPO3\Flow\Security\Account $account) {
+	public function loginAsUserAction(\TYPO3\Flow\Security\Account $account, array $additionalParameters = array()) {
 		$roles = $account->getRoles();
 		foreach ($roles as $role) {
 			$loginUserRole = $role->__toString();
@@ -61,11 +62,11 @@ class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 				if ($this->superUserService->loginAsUser($account)) {
 					$this->redirect(
-							$this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['action'], $this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['controller'], $this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['package']
+							$this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['action'], $this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['controller'], $this->settings['superUserRedirectOptions']['loginAsUserSuccess']['roles'][$key]['package'], $additionalParameters
 					);
 				} else {
 					$this->redirect(
-							$this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['action'], $this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['controller'], $this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['package']
+							$this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['action'], $this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['controller'], $this->settings['superUserRedirectOptions']['loginAsUserFailed']['roles'][$key]['package'], $additionalParameters
 					);
 				}
 			}
