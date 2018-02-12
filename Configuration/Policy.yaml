@@ -8,15 +8,15 @@
 #																																								#
 #																																								#
 
-
+privilegeTargets:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    Lelesys_SuperUser:
+      matcher: method(Lelesys\SuperUser\Controller\LoginController->(loginAsUser)Action())
+    Lelesys_SuperUser_Logout:
+      matcher: method(Lelesys\SuperUser\Controller\LoginController->(logoutAsUser)Action())
 roles:
-  SuperUser: []
-
-resources:
-  methods:
-    Lelesys_SuperUser: 'method(Lelesys\SuperUser\Controller\LoginController->(loginAsUser)Action())'
-    Lelesys_SuperUser_Logout: 'method(Lelesys\SuperUser\Controller\LoginController->(logoutAsUser)Action())'
-acls:
-  SuperUser:
-    methods:
-      Lelesys_SuperUser: GRANT
+  'Lelesys.SuperUser:SuperUser':
+    privileges:
+      -
+        privilegeTarget: Lelesys_SuperUser
+        permission: GRANT

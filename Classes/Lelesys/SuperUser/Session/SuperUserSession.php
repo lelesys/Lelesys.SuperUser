@@ -6,7 +6,7 @@ namespace Lelesys\SuperUser\Session;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * SuperUser session for the Lelesys.SuperUser package
@@ -18,14 +18,14 @@ class SuperUserSession {
 	/**
 	 * The Account
 	 *
-	 * @var \TYPO3\Flow\Security\Account
+	 * @var \Neos\Flow\Security\Account
 	 */
 	protected $account;
 
 	/**
 	 * Get Account.
 	 *
-	 * @return \TYPO3\Flow\Security\Account
+	 * @return \Neos\Flow\Security\Account
 	 */
 	public function getAccount() {
 		return $this->account;
@@ -34,11 +34,11 @@ class SuperUserSession {
 	/**
 	 * Set Account.
 	 *
-	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param \Neos\Flow\Security\Account $account
 	 * @Flow\Session(autoStart=TRUE)
 	 * @return void
 	 */
-	public function setAccount(\TYPO3\Flow\Security\Account $account = NULL) {
+	public function setAccount(\Neos\Flow\Security\Account $account = NULL) {
 		$this->account = $account;
 	}
 }

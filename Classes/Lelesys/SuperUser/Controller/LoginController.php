@@ -7,14 +7,14 @@ namespace Lelesys\SuperUser\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Login controller for the Lelesys.SuperUser package
  *
  * @Flow\Scope("singleton")
  */
-class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class LoginController extends \Neos\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * The SuperUserService
@@ -27,7 +27,7 @@ class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * The security conntext
 	 *
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 * @Flow\Inject
 	 */
 	protected $securityContext;
@@ -35,11 +35,11 @@ class LoginController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * Superuser can login as other user ang get redirected to Users home page.
 	 *
-	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param \Neos\Flow\Security\Account $account
 	 * @param array $additionalParameters
 	 * @return void
 	 */
-	public function loginAsUserAction(\TYPO3\Flow\Security\Account $account, array $additionalParameters = array()) {
+	public function loginAsUserAction(\Neos\Flow\Security\Account $account, array $additionalParameters = array()) {
 		$roles = $account->getRoles();
 		foreach ($roles as $role) {
 			$loginUserRole = $role->__toString();

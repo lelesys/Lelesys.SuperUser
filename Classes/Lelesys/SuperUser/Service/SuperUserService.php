@@ -7,7 +7,7 @@ namespace Lelesys\SuperUser\Service;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * SuperUserService for the Lelesys.SuperUser package
@@ -19,7 +19,7 @@ class SuperUserService {
 	/**
 	 * The Athentication Manager
 	 *
-	 * @var \TYPO3\Flow\Security\Authentication\AuthenticationManagerInterface
+	 * @var \Neos\Flow\Security\Authentication\AuthenticationManagerInterface
 	 * @Flow\Inject
 	 */
 	protected $authenticationManager;
@@ -27,7 +27,7 @@ class SuperUserService {
 	/**
 	 * The security conntext
 	 *
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 * @Flow\Inject
 	 */
 	protected $securityContext;
@@ -41,7 +41,7 @@ class SuperUserService {
 	protected $superUserSession;
 
 	/**
-	 * @var \TYPO3\Flow\Core\Bootstrap
+	 * @var \Neos\Flow\Core\Bootstrap
 	 * @Flow\Inject
 	 */
 	protected $bootstrap;
@@ -64,10 +64,10 @@ class SuperUserService {
 	/**
 	 * Superuser will loginn as User.
 	 *
-	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param \Neos\Flow\Security\Account $account
 	 * @return boolean
 	 */
-	public function loginAsUser(\TYPO3\Flow\Security\Account $account) {
+	public function loginAsUser(\Neos\Flow\Security\Account $account) {
 		try {
 			$superUserAccount = $this->securityContext->getAccount();
 			$this->superUserSession->setAccount($superUserAccount);
@@ -76,7 +76,7 @@ class SuperUserService {
 				$token->setAccount($account);
 			}
 			return TRUE;
-		} catch (\TYPO3\Flow\Exception $e) {
+		} catch (\Neos\Flow\Exception $e) {
 			return FALSE;
 		}
 	}
@@ -100,14 +100,14 @@ class SuperUserService {
 	/**
 	 * Append logout link for Superuser.
 	 *
-	 * @param \TYPO3\Flow\Mvc\RequestInterface $request
-	 * @param \TYPO3\Flow\Mvc\ResponseInterface $response
+	 * @param \Neos\Flow\Mvc\RequestInterface $request
+	 * @param \Neos\Flow\Mvc\ResponseInterface $response
 	 * @return void
 	 */
-	public function appendLogoutLink($request = NULL, \TYPO3\Flow\Mvc\ResponseInterface $response = NULL) {
-		if ($request instanceof \TYPO3\Flow\Mvc\ActionRequest
-				&& $response instanceof \TYPO3\Flow\Mvc\ResponseInterface) {
-			$server = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
+	public function appendLogoutLink($request = NULL, \Neos\Flow\Mvc\ResponseInterface $response = NULL) {
+		if ($request instanceof \Neos\Flow\Mvc\ActionRequest
+				&& $response instanceof \Neos\Flow\Mvc\ResponseInterface) {
+			$server = \Neos\Utility\ObjectAccess::getProperty($request->getHttpRequest(), 'server', TRUE);
 			if ((isset($server['HTTP_X_REQUESTED_WITH']) === FALSE
 					&& $this->superUserSession->getAccount() !== NULL)
 					|| (isset($server['HTTP_X_REQUESTED_WITH'])
@@ -115,7 +115,7 @@ class SuperUserService {
 					&& strtolower($server['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest'
 					&& $this->superUserSession->getAccount() !== NULL)
 			) {
-				$standaloneView = new \TYPO3\Fluid\View\StandaloneView($request);
+				$standaloneView = new \Neos\FluidAdaptor\View\StandaloneView($request);
 				$standaloneView->assign('account', $this->securityContext->getAccount());
 				$standaloneView->setTemplatePathAndFilename($this->settings['templatePathAndFilename']);
 				$response->appendContent($standaloneView->render());
